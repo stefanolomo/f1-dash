@@ -2,7 +2,7 @@ use anyhow::Error;
 use serde_json::{Value, json};
 use tokio::sync::broadcast::Sender;
 use tokio_stream::StreamExt;
-use tracing::{trace, warn};
+use tracing::{error, trace, warn};
 
 use crate::services::state_service::StateService;
 
