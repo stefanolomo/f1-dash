@@ -2,7 +2,7 @@ use anyhow::Error;
 use serde_json::{Value, json};
 use tokio::sync::broadcast::Sender;
 use tokio_stream::StreamExt;
-use tracing::{error, trace, warn};
+use tracing::{trace, warn};
 
 use crate::services::state_service::StateService;
 
@@ -69,7 +69,7 @@ async fn handle_update(
 
     match sender.send(update.to_string()) {
         Ok(_) => trace!("sent update to realtime channel"),
-        Err(err) => error!(?err, "failed to send update to realtime channel"),
+        Err(_) => trace!("no active receivers, skipping broadcast"),
     };
 
     state_service.update_state(update).await?;
